@@ -1,6 +1,6 @@
 {
   "name": "exit-code",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "`process.exitCode` behavior back-ported from io.js and Node.js 0.12+",
   "main": "index.js",
   "scripts": {
