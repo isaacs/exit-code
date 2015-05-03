@@ -7,7 +7,8 @@ Object.defineProperty(process, 'exitCode', {
     if (typeof c !== 'number')
       throw new TypeError('exitCode must be a number')
     code = c
-    setup()
+    if (exiting && code)
+      process.exit(code)
   },
   get: function () {
     return code
@@ -15,13 +16,9 @@ Object.defineProperty(process, 'exitCode', {
   enumerable: true, configurable: true
 })
 
-var didSetup = false
-function setup () {
-  if (didSetup)
-    return
-  didSetup = true
-  process.on('exit', function (c) {
-    if (code && !c)
-      process.exit(code)
-  })
-}
+var exiting = false
+process.on('exit', function (c) {
+  exiting = true
+  if (code && !c)
+    process.exit(code)
+})
